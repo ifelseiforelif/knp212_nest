@@ -1,0 +1,23 @@
+GET http://localhost:3000/api/product
+
+###
+GET http://localhost:3000/api/product/9
+
+###
+
+http://localhost:3000/api/product?title=phone&price=3420
+
+###
+
+POST  http://localhost:3000/api/product
+Content-Type: application/json
+
+{
+    "id":131,
+    "title":"phone",
+    "price": "ten"
+}
+
+###
+
+GET http://localhost:3000/api/test/7
