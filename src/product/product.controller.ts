@@ -3,8 +3,11 @@ import {
   Body,
   Controller,
   Get,
+  Header,
   HttpCode,
+  HttpStatus,
   Param,
+  ParseIntPipe,
   Post,
   Query,
   Redirect,
@@ -12,6 +15,8 @@ import {
   Res,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { ProductService } from './product.service';
+import { ProductPipe } from './product.pipe';
 
 class ProductDto {
   readonly id: number;
@@ -23,9 +28,12 @@ class ProductDto {
 
 @Controller('api')
 export class ProductController {
+  constructor(private readonly productService: ProductService) {}
+
+  @Header('X-Powered-By', 'Secret')
   @Get() //GET http://localhost:3000/api
   getInfo(): string {
-    return 'Hello from Nest';
+    return this.productService.getData();
   }
 
   @Get('product/:id') //GET http://localhost:3000/api/product/41
@@ -40,7 +48,7 @@ export class ProductController {
   }
   // GET http://localhost:3000/api/product?title=tv&price=5400
 
-  //@HttpCode(202)
+  @HttpCode(HttpStatus.ACCEPTED)
   //@Redirect('https://google.com')
   @Get('product')
   getInfoAboutProduct(
@@ -63,5 +71,13 @@ export class ProductController {
   test(@Req() req: Request, @Res() res: Response) {
     console.log(req.params);
     res.send('Hello from old Expres');
+  }
+
+  @Get('user/:id') //GET http://localhost:3000/api/user/id?name=Alex
+  getInfoAboutUser(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('name', ProductPipe) name: string,
+  ): string {
+    return `Your ID: ${id}. Your name: ${name}`;
   }
 }
