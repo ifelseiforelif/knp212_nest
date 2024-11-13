@@ -1,0 +1,27 @@
+POST http://localhost:3000/car
+Content-Type: application/json
+
+{
+    "model":"opel",
+    "year":2010
+}
+
+###
+GET http://localhost:3000/car
+
+### 
+GET http://localhost:3000/car/1
+
+
+###
+
+PATCH http://localhost:3000/car/3
+Content-Type: application/json
+
+{
+    "model" : 74,
+    "year": 1450
+}
+###
+
+DELETE http://localhost:3000/car/1
