@@ -10,7 +10,7 @@ Content-Type: application/json
 GET http://localhost:3000/car
 
 ### 
-GET http://localhost:3000/car/1
+GET http://localhost:3000/car/2
 
 
 ###
