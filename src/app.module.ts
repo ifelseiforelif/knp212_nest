@@ -43,7 +43,7 @@ import { CarService } from './car/car.service';
       useClass: LoggingInterceptor,
     },
   ],
-  controllers: [],
+  controllers: [TestController],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

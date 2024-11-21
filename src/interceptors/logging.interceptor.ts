@@ -12,7 +12,7 @@ import { MainService } from 'src/services/main.service';
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
   private readonly logger = new Logger(LoggingInterceptor.name);
-  constructor(@Inject(MainService) private readonly mainService: MainService) {}
+  constructor(private readonly mainService: MainService) {}
   intercept(
     context: ExecutionContext,
     next: CallHandler<any>,
@@ -20,8 +20,7 @@ export class LoggingInterceptor implements NestInterceptor {
     const request = context.switchToHttp().getRequest();
     const userAgent = request.get('user-agent') || '';
     const { ip, method, path: url } = request;
-    this.mainService.setUserId('5');
-    this.logger.debug(this.mainService.getUserId());
+    this.mainService.setUserId(request.params.id);
     this.logger.log(
       `${method} ${url} ${userAgent} ${ip}: ${context.getClass().name} ${
         context.getHandler().name
